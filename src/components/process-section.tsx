@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom'
 import { Button } from './ui/button'
 
 interface ProcessStep {
-  icon: string
+  image: string
   title: string
 }
 
 const processSteps: ProcessStep[] = [
-  { icon: '□', title: 'Explore & Ideate' },
-  { icon: '○', title: 'Craft & Design' },
-  { icon: '▢', title: 'Build & Refine' },
-  { icon: '◎', title: 'Launch & Elevate' },
+  { image: '/assets/explore.svg', title: 'Explore & Ideate' },
+  { image: '/assets/craft.svg', title: 'Craft & Design' },
+  { image: '/assets/build.svg', title: 'Build & Refine' },
+  { image: '/assets/launch.svg', title: 'Launch & Elevate' },
 ]
 
 export default function ProcessSection() {
@@ -42,7 +42,9 @@ export default function ProcessSection() {
           {processSteps.map((step) => (
             <BorderFrame color='white' key={step.title}>
               <div className='w-[238px] h-[238px] flex flex-col items-center justify-center'>
-                <div className='h-[160px] w-[144px]  mb-4'>{step.icon}</div>
+                <div className='h-[160px] w-[144px]  mb-4'>
+                  <img src={step.image} alt={step.title} className='w-full h-full object-contain' />
+                </div>
                 <p className='text-xl font-bold text-[#E7E3FF]'>{step.title}</p>
               </div>
             </BorderFrame>
