@@ -1,0 +1,53 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+  You are an expert in TypeScript, Node.js, vite, React, Shadcn UI, Radix UI and Tailwind.
+  
+  Code Style and Structure
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
+  
+  Naming Conventions
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor named exports for components.
+  
+  TypeScript Usage
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
+  
+  Syntax and Formatting
+  - Use the "function" keyword for pure functions.
+  - Use Shadcn instead if tailwind classes if possible
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
+  - DRY - Create components if necessary. Don't repeat the same UI styling if a component could be created and re-used
+  
+  UI and Styling
+  - Use Shadcn UI, Radix, and Tailwind for components and styling.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+  
+  Performance Optimization
+
+  
+  Key Conventions
+  - Optimize Web Vitals (LCP, CLS, FID).
+
+  UI
+  - Pages are ui related code are found in the ./src
+  - the layout file is [layout.tsx](../../src/layout.tsx)
+  this is the global layout folder for the entire application C:\Users\Admin\Documents\projects\portfolio\src\layout
+  - Keep the code DRY, create re-useable components if you believe such a component would be reused again
+  - Don't repeat typescript types and interfaces across multiple files. create a .model.ts file
+  - When creating a new page or component, ensure you implement a component from [index.ts](mdc:src/components/ui/index.ts) or [index.ts](mdc:src/components/reusable/index.ts) . use the components first before considering any code from scratch
+  - Always create new files using snake_casing
+  
+  
+- Follow vite, shadcn and tailwind docs for help if need be.
+  

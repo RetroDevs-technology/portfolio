@@ -53,6 +53,7 @@ export default {
       },
       fontFamily: {
         heading: ['Recia-Variable', 'serif'],
+        recia: ['Recia-Variable', 'serif'],
         sans: ['Instrument Sans', 'system-ui', 'sans-serif'],
       },
       keyframes: {

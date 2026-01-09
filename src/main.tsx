@@ -2,13 +2,33 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import Root from "@/pages/root";
+import Home from "@/pages/home";
+import Projects from "@/pages/projects";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
+import Team from "@/pages/team";
 import GlobalLayout from "./layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Home />,
+  },
+  {
+    path: "/projects",
+    element: <Projects />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    path: "/team",
+    element: <Team />,
   },
 ]);
 
