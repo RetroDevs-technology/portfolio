@@ -1,7 +1,70 @@
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
+import { useEffect, useState, useCallback } from 'react'
+import {
+  InfiniteCarousel,
+  InfiniteCarouselContent,
+  InfiniteCarouselItem,
+  type CarouselApi,
+} from '@/components/ui/infinite_carousel'
+
+const images = [
+  {
+    middle: '/assets/hero/bralewood-middle.png',
+    side: '/assets/hero/bralewood-side.png',
+    alt: 'Bralewood website preview',
+  },
+  {
+    middle: '/assets/hero/formatic-middle.png',
+    side: '/assets/hero/formatic-side.png',
+    alt: 'Formatic Trucking website preview',
+  },
+  {
+    middle: '/assets/hero/movemypets-middle.png',
+    side: '/assets/hero/movemypets-side.png',
+    alt: 'MoveMyPets website preview',
+  },
+]
 
 export default function HeroSection() {
+  const [middleApi, setMiddleApi] = useState<CarouselApi>()
+  const [leftApi, setLeftApi] = useState<CarouselApi>()
+  const [rightApi, setRightApi] = useState<CarouselApi>()
+
+  // Synchronize all carousels
+  const onSelect = useCallback((api: CarouselApi | undefined) => {
+    if (!api) return
+
+    const scrollToIndex = api.selectedScrollSnap()
+
+    // Sync left (previous image)
+    if (leftApi) {
+      const leftIndex = (scrollToIndex - 1 + images.length) % images.length
+      if (leftApi.selectedScrollSnap() !== leftIndex) {
+        leftApi.scrollTo(leftIndex)
+      }
+    }
+
+    // Sync right (next image)
+    if (rightApi) {
+      const rightIndex = (scrollToIndex + 1) % images.length
+      if (rightApi.selectedScrollSnap() !== rightIndex) {
+        rightApi.scrollTo(rightIndex)
+      }
+    }
+  }, [leftApi, rightApi])
+
+  useEffect(() => {
+    if (!middleApi) return
+
+    middleApi.on('select', () => onSelect(middleApi))
+
+    return () => {
+      middleApi.off('select', () => onSelect(middleApi))
+    }
+  }, [middleApi, onSelect])
+
+
   return (
     <section className='bg-[#E7E3FF] py-16 md:py-24 lg:py-0 lg:pt-24 ' id='hero'>
       <div className='container mx-auto px-4 md:px-[100px]'>
@@ -35,34 +98,82 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Website Preview Images */}
-        <div className='relative flex items-center justify-center md:h-[380px] mb-8 md:mb-0'>
-          {/* Left Preview - Bralewood */}
-          <div className='hidden md:block absolute bg-white shadow-lg w-[560px] h-[300px] overflow-hidden -left-20 top-[80px] z-0 '>
-            <img
-              src='/assets/hero/bralewood.png'
-              alt='Bralewood website preview'
-              className='w-full h-full object-cover'
-            />
+        {/* Website Preview Images Carousel */}
+        <div className='relative flex items-center justify-center md:h-[380px] mb-8 md:mb-0 overflow-visible'>
+          {/* Left Preview - Shows previous image */}
+          <InfiniteCarousel
+            setApi={setLeftApi}
+            autoplay={false}
+            className='hidden md:block absolute -left-20 top-[80px] z-0'
+            opts={{
+              loop: true,
+              duration: 25,
+            }}>
+            <div className='bg-[#493C81] shadow-lg w-[560px] h-[300px] overflow-hidden rounded-[2px]'>
+              <InfiniteCarouselContent className='-ml-0 h-full'>
+                {images.map((image, index) => (
+                  <InfiniteCarouselItem key={`${image.side}-left-${index}`} className='pl-0 basis-[560px] w-[560px] h-[300px] flex-shrink-0 relative'>
+                    <img
+                      src={image.side}
+                      alt={image.alt}
+                      className='absolute inset-0 w-full h-full object-cover'
+                    />
+                  </InfiniteCarouselItem>
+                ))}
+              </InfiniteCarouselContent>
+            </div>
+          </InfiniteCarousel>
+
+          {/* Middle Preview - Main Carousel - Shows current image */}
+          <div className='relative z-10 w-full max-w-[560px]'>
+            <InfiniteCarousel
+              setApi={setMiddleApi}
+              autoplay={true}
+              autoplayDelay={4000}
+              className='w-full'
+              opts={{
+                loop: true,
+                duration: 25,
+              }}>
+              <div className='bg-[#493C81] shadow-lg w-full h-[300px] md:h-[380px] overflow-hidden rounded-[2px]'>
+                <InfiniteCarouselContent className='-ml-0 h-full w-full'>
+                  {images.map((image, index) => (
+                    <InfiniteCarouselItem key={`${image.middle}-${index}`} className='pl-0 basis-full min-w-full w-full h-[300px] md:h-[380px] flex-shrink-0 relative'>
+                      <img
+                        src={image.middle}
+                        alt={image.alt}
+                        className='absolute inset-0 w-full h-full object-cover'
+                      />
+                    </InfiniteCarouselItem>
+                  ))}
+                </InfiniteCarouselContent>
+              </div>
+            </InfiniteCarousel>
           </div>
 
-          {/* Middle Preview - Formatic */}
-          <div className='bg-white shadow-lg w-full max-w-[560px] h-[300px] md:h-[380px] overflow-hidden relative z-10'>
-            <img
-              src='/assets/hero/formatic.png'
-              alt='Formatic Trucking website preview'
-              className='w-full h-full object-cover'
-            />
-          </div>
-
-          {/* Right Preview - MoveMyPets */}
-          <div className='hidden md:block absolute bg-white shadow-lg w-[560px] h-[300px] overflow-hidden -right-20 top-[80px] z-0 '>
-            <img
-              src='/assets/hero/movemypets.png'
-              alt='MoveMyPets website preview'
-              className='w-full h-full object-cover'
-            />
-          </div>
+          {/* Right Preview - Shows next image */}
+          <InfiniteCarousel
+            setApi={setRightApi}
+            autoplay={false}
+            className='hidden md:block absolute -right-20 top-[80px] z-0'
+            opts={{
+              loop: true,
+              duration: 25,
+            }}>
+            <div className='bg-[#493C81] shadow-lg w-[560px] h-[300px] overflow-hidden rounded-[2px]'>
+              <InfiniteCarouselContent className='-ml-0 h-full'>
+                {images.map((image, index) => (
+                  <InfiniteCarouselItem key={`${image.side}-right-${index}`} className='pl-0 basis-[560px] w-[560px] h-[300px] flex-shrink-0 relative'>
+                    <img
+                      src={image.side}
+                      alt={image.alt}
+                      className='absolute inset-0 w-full h-full object-cover'
+                    />
+                  </InfiniteCarouselItem>
+                ))}
+              </InfiniteCarouselContent>
+            </div>
+          </InfiniteCarousel>
         </div>
       </div>
     </section>
