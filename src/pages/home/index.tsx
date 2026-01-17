@@ -6,6 +6,7 @@ import WhatWeDoSection from './what_we_do_section'
 import ProcessSection from './process_section'
 import QuoteSection from './quote_section'
 import ProjectsShowcase from './projects_showcase'
+import TestimonialSection from './testimonial_section'
 import ReadyToWork from './ready_to_work'
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <WhatWeDoSection />
       <ProjectsShowcase />
+      <TestimonialSection />
       <BannerSection />
       <ProcessSection />
       <ExpertiseSection />
