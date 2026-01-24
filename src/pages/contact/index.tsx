@@ -1,14 +1,14 @@
 import Layout from '@/layout/layout'
+import ContactHero from './hero'
+import ContactFormSection from './contact_form_section'
+import CTOSection from '../home/cto_section'
 
 export default function Contact() {
   return (
     <Layout>
-      <section className='bg-[#F2F0FF] min-h-screen py-24'>
-        <div className='container mx-auto px-4'>
-          <h1 className='text-4xl md:text-5xl font-bold text-black mb-8'>Contact Us</h1>
-          <p className='text-lg text-gray-700'>Get in touch with us to start your project.</p>
-        </div>
-      </section>
+      <ContactHero />
+      <ContactFormSection />
+      <CTOSection />
     </Layout>
   )
 }

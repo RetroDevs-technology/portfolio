@@ -7,7 +7,6 @@ const navigationItems = [
   { label: 'Projects', href: '/projects' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
-  { label: 'Our Team', href: '/team' },
 ]
 
 export default function Header() {
