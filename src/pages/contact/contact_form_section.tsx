@@ -1,29 +1,55 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Mail, Phone } from 'lucide-react'
-import { useState } from 'react'
 import { FadeInOnScroll } from '@/components/fade-in'
+import { useMutation } from '@tanstack/react-query'
+import directusService, { type CreateContactPayload } from '@/services/directus_service'
+import { toast } from 'sonner'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  contactFormSchema,
+  type ContactFormValues,
+} from '@/pages/contact/contact_form_section.model'
+
+const defaultValues: ContactFormValues = {
+  first_name: '',
+  last_name: '',
+  email: '',
+  phone: '',
+  company: '',
+  subject: '',
+  message: '',
+}
 
 export default function ContactFormSection() {
-  const [formData, setFormData] = useState({
-    companyName: '',
-    email: '',
-    message: '',
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues,
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
-  }
+  const { mutate: createContact, isPending } = useMutation({
+    mutationFn: (data: CreateContactPayload) => directusService.createContact(data),
+    onSuccess: () => {
+      toast.success('Message sent successfully')
+      form.reset(defaultValues)
+    },
+    onError: () => {
+      toast.error('Failed to create contact')
+    },
+  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+  function onSubmit(values: ContactFormValues) {
+    createContact(values)
   }
 
   return (
@@ -75,62 +101,148 @@ export default function ContactFormSection() {
                   We're Ready To Collaborate And Bring Your Project To Life.
                 </h3>
 
-                <form onSubmit={handleSubmit} className='space-y-6'>
-                  {/* Company Name */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='companyName' className='text-base font-medium text-black'>
-                      Company name
-                    </Label>
-                    <Input
-                      type='text'
-                      id='companyName'
-                      name='companyName'
-                      value={formData.companyName}
-                      onChange={handleChange}
-                      className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
-                      required
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className='space-y-6'>
+                    <FormField
+                      control={form.control}
+                      name='first_name'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            First name
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-
-                  {/* Email Address */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='email' className='text-base font-medium text-black'>
-                      Email address
-                    </Label>
-                    <Input
-                      type='email'
-                      id='email'
+                    <FormField
+                      control={form.control}
+                      name='last_name'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Last name
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
                       name='email'
-                      value={formData.email}
-                      onChange={handleChange}
-                      className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
-                      required
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Email address
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type='email'
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-
-                  {/* Message */}
-                  <div className='space-y-2'>
-                    <Label htmlFor='message' className='text-base font-medium text-black'>
-                      Message
-                    </Label>
-                    <Textarea
-                      id='message'
+                    <FormField
+                      control={form.control}
+                      name='phone'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Phone
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type='tel'
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='company'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Company name
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='subject'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Subject
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81]'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
                       name='message'
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={6}
-                      className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81] resize-none'
-                      required
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className='text-base font-medium text-black'>
+                            Message
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              {...field}
+                              rows={6}
+                              className='w-full px-4 py-3 border border-gray-200 bg-white text-black focus-visible:ring-[#493C81] resize-none'
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  {/* Submit Button */}
-                  <Button
-                    type='submit'
-                    className='w-full md:w-auto py-[20px] px-8 font-medium bg-[#493C81] text-[#F9F8FF] hover:bg-[#3A2B66] transition-colors rounded-[4px] text-base font-recia'>
-                    Start a project
-                  </Button>
-                </form>
+                    <Button
+                      type='submit'
+                      disabled={form.formState.isSubmitting || isPending}
+                      className='w-full md:w-auto py-[20px] px-8 font-medium bg-[#493C81] text-[#F9F8FF] hover:bg-[#3A2B66] transition-colors rounded-[4px] text-base font-recia'>
+                      Start a project
+                    </Button>
+                  </form>
+                </Form>
               </div>
             </div>
           </div>
