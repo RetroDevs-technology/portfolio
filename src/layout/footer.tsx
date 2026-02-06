@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Twitter, Linkedin } from 'lucide-react'
+import { Twitter, Linkedin, Github } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -23,11 +23,11 @@ export default function Footer() {
 
           {/* Social Media Icons */}
           <div className='flex items-center gap-3'>
-            {/* <a
-              href='https://www.facebook.com/retrodevs'
+            <a
+              href='https://github.com/RetroDevs-technology'
               className='w-8 h-8 rounded-full bg-[#493C81] flex items-center justify-center text-white hover:bg-[#3A2B66] transition-colors'>
-              <Facebook className='w-4 h-4' />
-            </a> */}
+              <Github className='w-4 h-4' />
+            </a>
             <a
               href='https://x.com/RetroDevsTech'
               className='w-8 h-8 rounded-full bg-[#493C81] flex items-center justify-center text-white hover:bg-[#3A2B66] transition-colors'>

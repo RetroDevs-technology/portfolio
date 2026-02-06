@@ -17,16 +17,16 @@ export const SEO_CONFIG = {
     url: "https://retrodevs.com",
     logo: "https://retrodevs.com/assets/retrodevslogo.png",
     email: "hello@retrodevs.com",
-    phone: "+234 (000) 000 000",
+    phone: "+234 (080) 520 26709",
     address: {
-      addressCountry: "US",
-      addressLocality: "United States",
+      addressCountry: "NG",
+      addressLocality: "Nigeria",
     },
     sameAs: [
       // Add social media URLs here when available
-      // "https://twitter.com/retrodevs",
-      // "https://linkedin.com/company/retrodevs",
-      // "https://github.com/retrodevs",
+      "https://x.com/RetroDevsTech",
+      "https://www.linkedin.com/in/retro-devs-storage-5b28123a3/",
+      "https://github.com/RetroDevs-technology",
     ],
   },
   verification: {
