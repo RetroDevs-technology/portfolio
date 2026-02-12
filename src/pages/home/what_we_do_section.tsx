@@ -82,32 +82,44 @@ export default function WhatWeDoSection() {
           </div>
         </FadeInOnScroll>
 
-        {/* Services Grid */}
-        <FadeInStagger staggerDelay={0.15} className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className='border p-6 hover:shadow-md transition-shadow'
-              style={{ background: service.gradient, borderColor: service.borderColor }}>
-              {/* Icon */}
+        {/* Two-column layout: Poster + Service Cards */}
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-start'>
+          {/* Left: Poster Image */}
+          <FadeInOnScroll>
+            <img
+              src='/assets/wwd/what-we-do.png'
+              alt='Your Vision. Our Code. Limitless Possibilities.'
+              className='w-full h-auto rounded-lg'
+            />
+          </FadeInOnScroll>
+
+          {/* Right: Service Cards */}
+          <FadeInStagger staggerDelay={0.15} className='flex flex-col gap-4'>
+            {services.map((service) => (
               <div
-                className='w-12 h-12 rounded-full border flex items-center justify-center mb-4'
-                style={{ borderColor: service.iconBorderColor, backgroundColor: service.iconBorderColor }}>
-                <img
-                  src={service.icon}
-                  alt={service.title}
-                  className='w-5 h-5'
-                />
+                key={service.title}
+                className='border p-5 hover:shadow-md transition-shadow'
+                style={{ background: service.gradient, borderColor: service.borderColor }}>
+                {/* Icon */}
+                <div
+                  className='w-10 h-10 rounded-full border flex items-center justify-center mb-3'
+                  style={{ borderColor: service.iconBorderColor, backgroundColor: service.iconBorderColor }}>
+                  <img
+                    src={service.icon}
+                    alt={service.title}
+                    className='w-4 h-4'
+                  />
+                </div>
+
+                {/* Title */}
+                <h3 className='text-lg font-bold text-black mb-2'>{service.title}</h3>
+
+                {/* Description */}
+                <p className='text-gray-600 text-sm leading-relaxed'>{service.description}</p>
               </div>
-
-              {/* Title */}
-              <h3 className='text-xl font-bold text-black mb-3'>{service.title}</h3>
-
-              {/* Description */}
-              <p className='text-gray-600 text-sm leading-relaxed'>{service.description}</p>
-            </div>
-          ))}
-        </FadeInStagger>
+            ))}
+          </FadeInStagger>
+        </div>
       </div>
     </section>
   )

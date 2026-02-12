@@ -11,7 +11,7 @@ export default function ProjectsStrip() {
   return (
     <section className='pb-12 md:pb-[80px] w-full overflow-hidden bg-white'>
       <div className='container px-4'>
-        <div className='flex flex-wrap lg:flex-nowrap items-center justify-center gap-4 md:gap-6 w-full'>
+        <div className='flex flex-wrap items-center justify-center gap-4 md:gap-6 w-full mx-4'>
           {projectNames.map((name) => (
             <div
               key={name}

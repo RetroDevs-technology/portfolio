@@ -56,7 +56,7 @@ export default function ContactFormSection() {
     <section className='bg-white py-12 md:py-16 lg:py-24'>
       <div className='container mx-auto px-4 md:px-8 lg:px-0'>
         <FadeInOnScroll>
-          <div className='flex flex-col lg:flex-row gap-8 lg:gap-16'>
+          <div className='flex flex-col lg:flex-row gap-8 lg:gap-16 mx-4'>
             {/* Left Column - Contact Info */}
             <div className='w-full lg:w-1/2'>
               <h2 className='text-4xl md:text-5xl lg:text-[56px] font-heading font-bold text-black leading-[120%] tracking-[-4%] mb-12'>
