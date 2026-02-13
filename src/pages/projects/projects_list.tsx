@@ -92,7 +92,7 @@ const projects: Project[] = [
       "A sophisticated, conversion-focused e-commerce platform crafted to elevate the brand's digital presence and deliver a seamless shopping experience. This project features refined product presentation, smooth navigation, and a frictionless checkout flow designed to boost customer confidence and drive sales.",
     tags: ['Design', 'Web development'],
     imagePlaceholder: '/assets/projects/move-my-pets.png',
-    link: 'https://moveyourpet.com',
+    link: 'https://www.movemypetng.com/',
   },
   {
     id: 'nigeriatennis',
@@ -101,7 +101,7 @@ const projects: Project[] = [
       "A sophisticated, conversion-focused e-commerce platform crafted to elevate the brand's digital presence and deliver a seamless shopping experience. This project features refined product presentation, smooth navigation, and a frictionless checkout flow designed to boost customer confidence and drive sales.",
     tags: ['Design', 'Web development'],
     imagePlaceholder: '/assets/projects/ntf.png',
-    link: 'https://nigeriatennis.com',
+    link: 'https://nigeriatennisfederation.org/',
   },
   {
     id: 'bralewood',
@@ -110,7 +110,7 @@ const projects: Project[] = [
       "A sophisticated, conversion-focused e-commerce platform crafted to elevate the brand's digital presence and deliver a seamless shopping experience. This project features refined product presentation, smooth navigation, and a frictionless checkout flow designed to boost customer confidence and drive sales.",
     tags: ['Design', 'Web development'],
     imagePlaceholder: '/assets/projects/bralewood.png',
-    link: 'https://bralewood.com',
+    link: 'https://bralewood.com/',
   },
   {
     id: 'expresselevator',
@@ -119,7 +119,7 @@ const projects: Project[] = [
       "A sophisticated, conversion-focused e-commerce platform crafted to elevate the brand's digital presence and deliver a seamless shopping experience. This project features refined product presentation, smooth navigation, and a frictionless checkout flow designed to boost customer confidence and drive sales.",
     tags: ['Design', 'Web development'],
     imagePlaceholder: '/assets/projects/express-elevator.png',
-    link: 'https://expresselevator.com',
+    link: 'https://express-elevator.vercel.app/',
   },
   {
     id: 'lexxyfx',
